@@ -23,5 +23,5 @@ jobs:
         run: |
           git fetch origin
           git checkout paywall-api-stage
-          git merge develop -X theirs
+          git merge $GITHUB_REF_NAME -X theirs
           git push origin paywall-api-stage
