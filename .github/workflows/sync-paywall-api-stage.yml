@@ -1,0 +1,28 @@
+name: Sync develop to paywall-api-stage branch
+
+on:
+  push:
+    branches:
+      - release/*
+      - hotfix/*
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup git
+        run: |
+          git config --global user.email "cecilinabing@gmail.com"
+          git config --global user.name "Cecilina"
+      - name: Sync when devlop is updated
+        if: github.ref == refs/heads/release/* || github.ref == refs/heads/hotfix/* || github.head_ref == release/* || github.head_ref == hotfix/*
+        run: |
+          git fetch origin
+          git checkout paywall-api-stage
+          git merge develop -X theirs
+          git push origin paywall-api-stage
