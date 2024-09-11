@@ -1,4 +1,4 @@
-name: Sync develop to paywall-api-stage branch
+name: Sync release or hotfix to paywall-api-stage
 
 on:
   push:
@@ -19,8 +19,7 @@ jobs:
         run: |
           git config --global user.email "cecilinabing@gmail.com"
           git config --global user.name "Cecilina"
-      - name: Sync when devlop is updated
-        if: github.ref == refs/heads/release/* || github.ref == refs/heads/hotfix/* || github.head_ref == release/* || github.head_ref == hotfix/*
+      - name: Sync when release or hotfix branch is updated
         run: |
           git fetch origin
           git checkout paywall-api-stage
